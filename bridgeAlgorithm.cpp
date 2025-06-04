@@ -5,6 +5,7 @@
 #include <set>
 #include <cstdlib>
 
+//Variable yang digunakan untuk operasi algoritma di sini.
 BridgeFinder::BridgeFinder(const Graph& g) : graph(g), n(g.getNumNodes()), timer(0){
     visited.assign(n+1, false);
     disc.assign(n+1, -1);
@@ -12,6 +13,7 @@ BridgeFinder::BridgeFinder(const Graph& g) : graph(g), n(g.getNumNodes()), timer
     bridges.clear();
 }
 
+//Fungsi pencarian bridge dengan metode DFS / Tarjan's Algorithm.
 void BridgeFinder::dfs(int u, int parent){
     visited[u] = true;
     disc[u] = low[u] = timer++;
@@ -32,6 +34,7 @@ void BridgeFinder::dfs(int u, int parent){
     }
 }
 
+//Fungsi untuk mempartisi edge yang terhubung
 void BridgeFinder::findBridges(){
     timer = 0;
     std::fill(visited.begin(), visited.end(), false);
@@ -46,6 +49,7 @@ void BridgeFinder::findBridges(){
     }
 }
 
+//Fungsi untuk menampilkan bridge pada graf
 void BridgeFinder::printBridges() const{
     if (bridges.empty()){
         std::cout << "Tidak ada bridge dalam graph ini.\n";
@@ -57,6 +61,7 @@ void BridgeFinder::printBridges() const{
     }
 }
 
+//Fungsi untuk memvisualisasikan graph dan menyimpannya menjadi file (.dot)
 void BridgeFinder::exportToDot(const std::string& filename) const {
     std::ofstream fout(filename);
     fout << "graph G {\n";
@@ -83,6 +88,7 @@ void BridgeFinder::exportToDot(const std::string& filename) const {
     fout.close();
 }
 
+//Fungsi untuk mengubah file (.dot) menjadi file (.png)
 void BridgeFinder::exportToPNG(const std::string& dotFile, const std::string& pngFile) {
     std::string command = "dot -Tpng " + dotFile + " -o " + pngFile;
     int result = system(command.c_str());

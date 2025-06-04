@@ -1,19 +1,22 @@
 #include "graph.h"
 #include <algorithm>
 
-Graph::Graph(int n) : numNodes(n), adj(n + 1) {}
+Graph::Graph(int n) : numNodes(n), adj(n + 1) {} //Variabel yang digunakan di sini.
 
+//Fungsi untuk mengatur jumlah node
 void Graph::setNumNodes(int n) {
     numNodes = n;
     adj.assign(n + 1, std::vector<int>());
     edgeSet.clear();
 }
 
+//Fungsi untuk mereset edge yang sebelumnya telah diinput
 void Graph::clearEdges() {
     adj.assign(numNodes + 1, std::vector<int>());
     edgeSet.clear();
 }
 
+//Fungsi untuk menambahkan edge
 bool Graph::addEdge(int u, int v) {
     if (u == v) {
         std::cout << "Don't input self-loop.\n";
@@ -34,6 +37,7 @@ bool Graph::addEdge(int u, int v) {
     return true;
 }
 
+//Fungsi untuk menampilkan graf yang sudah kita input
 void Graph::showGraph() const{
     std::cout << "Graph saat ini :\n";
     for (int u = 1; u <= numNodes; ++u){    // u sebagai batas atas node
@@ -45,6 +49,7 @@ void Graph::showGraph() const{
     }
 }
 
+//Fungsi untuk menyimpan graf menjadi file (.txt)
 void Graph::saveToFile(const std::string& filename) const{
     std::ofstream out(filename);
     if (!out) {
@@ -61,6 +66,7 @@ void Graph::saveToFile(const std::string& filename) const{
     std::cout << "Graph has been successfully saved into :" << filename << "\n";
 }
 
+//Fungsi untuk memuat file (.txt) yang berisi graf
 void Graph::loadFromFile(const std::string& filename){
     std::ifstream in(filename);
     if (!in){
@@ -81,10 +87,12 @@ void Graph::loadFromFile(const std::string& filename){
     std::cout << "Graph has been loaded from : " << filename << "\n";
 }
 
+//Fungsi untuk memanggil batas node yang telah kita input
 int Graph::getNumNodes() const {
     return numNodes;
 }
 
+//Fungsi untuk memanggil node apakah bersebelahan atau tidak
 const std::vector<std::vector<int>>& Graph::getAdjList() const {
     return adj;
 }
